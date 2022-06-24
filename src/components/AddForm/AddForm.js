@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { v4 as uuidv4 } from 'uuid';
+
 const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
@@ -12,18 +14,18 @@ const MarginLabel = styled.label`
   margin-right: 20px;
 `;
 
-const AddForm = () => {
-
+const AddForm = ({ passData }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { type, name, amount, category } = e.target.elements;
     const data = {
+      id: uuidv4(),
       type: type.value,
       name: name.value,
       amount: amount.value,
       category: category.value
     };
-    console.log("data: ", data);
+    passData(data);
   };
 
   return (
@@ -46,7 +48,7 @@ const AddForm = () => {
           <option>3</option>
         </select>
       </div>
-      <button type="submit">Add:</button>
+      <button type="submit">Add</button>
     </FormWrapper>
   );
 };

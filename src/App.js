@@ -1,13 +1,11 @@
-import ListPresentation from "./pages/ListPresentation";
+import Calculator from "./pages/Calculator";
 
 import "./App.css";
-import AddForm from "./components/AddForm/AddForm";
 
 function App() {
   return (
     <div className="App">
-      <ListPresentation />
-      <AddForm />
+      <Calculator />
     </div>
   );
 };
