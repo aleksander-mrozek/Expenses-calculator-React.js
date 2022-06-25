@@ -1,6 +1,7 @@
-import styled from "styled-components";
-
+import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+
+import styled from "styled-components";
 
 const FormWrapper = styled.form`
   display: flex;
@@ -15,6 +16,15 @@ const MarginLabel = styled.label`
 `;
 
 const AddForm = ({ passData }) => {
+  const expenseCategories = ["housing", "transportation", "food", "utilities", "clothing", "medical", "other"];
+  const incomeCategories = ["salaries", "tips", "social payments", "rents", "dividends", "other"];
+
+  const [categoryType, setCategoryType] = useState("");
+
+  const handleType = (e) => {
+    setCategoryType(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const { type, name, amount, category } = e.target.elements;
@@ -26,14 +36,29 @@ const AddForm = ({ passData }) => {
       category: category.value
     };
     passData(data);
+    e.target.reset();
+    setCategoryType("");
+  };
+
+  let category;
+  if (categoryType==="Expense") {
+    category = expenseCategories.map((element) => {
+      return ( <option key={uuidv4()}>{element}</option> )
+    });
+  } else if (categoryType==="Income") {
+    category = incomeCategories.map((element) => {
+      return ( <option key={uuidv4()}>{element}</option> )
+    });
+  } else {
+    category = ( <option disabled></option> );
   };
 
   return (
     <FormWrapper onSubmit={handleSubmit}>
       <div>
-        <input id="expense-radio" type="radio" name="type" value="Expense" />
+        <input id="expense-radio" type="radio" name="type" value="Expense" onChange={handleType}/>
         <MarginLabel htmlFor="expense-radio" >Expense</MarginLabel>
-        <input id="income-radio" type="radio" name="type" value="Income" />
+        <input id="income-radio" type="radio" name="type" value="Income" onChange={handleType}/>
         <label htmlFor="income-radio" >Income</label>
       </div>
       <label htmlFor="name">Name:</label>
@@ -43,9 +68,7 @@ const AddForm = ({ passData }) => {
       <div>
         <MarginLabel htmlFor="category">Category:</MarginLabel>
         <select id="category" name="category">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
+          {category}
         </select>
       </div>
       <button type="submit">Add</button>

@@ -13,10 +13,10 @@ const Calculator = () => {
 
   const transformData = (data) => {
     if (data.type==="Expense") {
-      setExpense([...expense, [data.id, `${data.name}, $${data.amount}, ${data.category}`]]);
+      setExpense([...expense, [data.id, data.name, data.amount, data.category]]);
     }
     if (data.type==="Income") {
-      setIncome([...income, [data.id, `${data.name}, $${data.amount}, ${data.category}`]]);
+      setIncome([...income, [data.id, data.name, data.amount, data.category]]);
     }
   };
 
@@ -36,7 +36,7 @@ const Calculator = () => {
             {expense && expense.map((element, index) => {
               return (
                 <Fragment key={`fragment-${element[0]}`}>
-                  <ListExpense key={`list-${element[0]}`}>{element[1]}</ListExpense>
+                  <ListExpense key={`list-${element[0]}`}>{element[1]}, ${element[2]}, {element[3]}</ListExpense>
                   <RemoveButton key={`button-${element[0]}`} index={index} remove={removeExpenseItem}/>
                 </Fragment>
               );
@@ -48,9 +48,9 @@ const Calculator = () => {
           <Income>
             {income && income.map((element, index) => {
               return (
-                <Fragment key={`fragment-${element[0]}`}>
-                  <ListIncome key={`list-${element[0]}`}>{element[1]}</ListIncome>
-                  <RemoveButton key={`button-${element[0]}`} index={index} remove={removeIncomeItem}/>
+                <Fragment key={`${element[0]}`}>
+                  <ListIncome>{element[1]}, ${element[2]}, {element[3]}</ListIncome>
+                  <RemoveButton index={index} remove={removeIncomeItem}/>
                 </Fragment>
               );
             })}
