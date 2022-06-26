@@ -6,10 +6,11 @@ import Income from "../components/Income/Income";
 import ListExpense from "../components/ListExpense/ListExpense";
 import ListIncome from "../components/ListIncome/ListIncome";
 import RemoveButton from "../components/RemoveButton/RemoveButton";
+import Balance from "../components/Balance/Balance";
 
 const Calculator = () => {
-  const [expense, setExpense] = useState("");
-  const [income, setIncome] = useState("");
+  const [expense, setExpense] = useState([]);
+  const [income, setIncome] = useState([]);
 
   const transformData = (data) => {
     if (data.type==="Expense") {
@@ -29,21 +30,28 @@ const Calculator = () => {
 
   return (
     <Fragment>
-      <div className="list-container">
-        <div className="expense-container">
+      <div className="balance-container">
+        <h2>Your balance is:</h2>
+        <Balance expense={expense} income={income} />
+      </div>
+      <div className="flex-container">
+        <div>
+          <AddForm passData={transformData}/>
+        </div>
+        <div>
           <h2>Expenses:</h2>
           <Expense>
             {expense && expense.map((element, index) => {
               return (
-                <Fragment key={`fragment-${element[0]}`}>
-                  <ListExpense key={`list-${element[0]}`}>{element[1]}, ${element[2]}, {element[3]}</ListExpense>
-                  <RemoveButton key={`button-${element[0]}`} index={index} remove={removeExpenseItem}/>
+                <Fragment key={`${element[0]}`}>
+                  <ListExpense>{element[1]}, ${element[2]}, {element[3]}</ListExpense>
+                  <RemoveButton index={index} remove={removeExpenseItem}/>
                 </Fragment>
               );
             })}
           </Expense>
         </div>
-        <div className="income-container">
+        <div>
           <h2>Incomes:</h2>
           <Income>
             {income && income.map((element, index) => {
@@ -56,9 +64,6 @@ const Calculator = () => {
             })}
           </Income>
         </div>
-      </div>
-      <div>
-        <AddForm passData={transformData}/>
       </div>
     </Fragment>
   );

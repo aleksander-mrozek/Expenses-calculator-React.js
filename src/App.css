@@ -1,0 +1,17 @@
+body {
+  background-color: #FCF0F2;
+}
+li {
+  padding: 10px;
+  letter-spacing: 1px;
+}
+.flex-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.balance-container {
+  width: 250px;
+  margin: 75px auto;
+  border-bottom: 1px solid grey;
+}

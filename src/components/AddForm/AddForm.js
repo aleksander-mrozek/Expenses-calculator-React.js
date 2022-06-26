@@ -56,15 +56,15 @@ const AddForm = ({ passData }) => {
   return (
     <FormWrapper onSubmit={handleSubmit}>
       <div>
-        <input id="expense-radio" type="radio" name="type" value="Expense" onChange={handleType}/>
+        <input id="expense-radio" type="radio" name="type" value="Expense" onChange={handleType} required/>
         <MarginLabel htmlFor="expense-radio" >Expense</MarginLabel>
-        <input id="income-radio" type="radio" name="type" value="Income" onChange={handleType}/>
-        <label htmlFor="income-radio" >Income</label>
+        <input id="income-radio" type="radio" name="type" value="Income" onChange={handleType} required/>
+        <label htmlFor="income-radio">Income</label>
       </div>
       <label htmlFor="name">Name:</label>
-      <input id="name" type="text" name="name" />
+      <input id="name" type="text" name="name" required/>
       <label htmlFor="amount">Amount:</label>
-      <input id="amount" type="number" step="0.01" name="amount" />
+      <input id="amount" type="number" step="0.01" name="amount" min="0.01" required/>
       <div>
         <MarginLabel htmlFor="category">Category:</MarginLabel>
         <select id="category" name="category">
