@@ -7,10 +7,18 @@ import ListExpense from "../components/ListExpense/ListExpense";
 import ListIncome from "../components/ListIncome/ListIncome";
 import RemoveButton from "../components/RemoveButton/RemoveButton";
 import Balance from "../components/Balance/Balance";
+import {
+  exampleExpense1,
+  exampleExpense2,
+  exampleExpense3,
+  exampleIncome1,
+  exampleIncome2,
+  exampleIncome3
+} from "../helpers/initialData";
 
 const Calculator = () => {
-  const [expense, setExpense] = useState([]);
-  const [income, setIncome] = useState([]);
+  const [expense, setExpense] = useState([exampleExpense1, exampleExpense2, exampleExpense3]);
+  const [income, setIncome] = useState([exampleIncome1, exampleIncome2, exampleIncome3]);
 
   const transformData = (data) => {
     if (data.type==="Expense") {
