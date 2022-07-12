@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 
 import AddForm from "../components/AddForm/AddForm";
 import Expense from "../components/Expense/Expense";
@@ -17,8 +17,11 @@ import {
 } from "../helpers/initialData";
 
 const Calculator = () => {
-  const [expense, setExpense] = useState([exampleExpense1, exampleExpense2, exampleExpense3]);
-  const [income, setIncome] = useState([exampleIncome1, exampleIncome2, exampleIncome3]);
+  const expenseStorage = JSON.parse(localStorage.getItem("expenseStorage"));
+  const incomeStorage = JSON.parse(localStorage.getItem("incomeStorage"));
+
+  const [expense, setExpense] = useState(expenseStorage === null ? [exampleExpense1, exampleExpense2, exampleExpense3] : expenseStorage);
+  const [income, setIncome] = useState(incomeStorage === null ? [exampleIncome1, exampleIncome2, exampleIncome3] : incomeStorage);
 
   const transformData = (data) => {
     if (data.type==="Expense") {
@@ -35,6 +38,13 @@ const Calculator = () => {
   const removeIncomeItem = (index) => {
     setIncome((income) => income.filter((_, i) => i !== index));
   };
+
+  useEffect(() => {
+    localStorage.setItem("expenseStorage", JSON.stringify(expense));
+  }, [expense]);
+  useEffect(() => {
+    localStorage.setItem("incomeStorage", JSON.stringify(income));
+  }, [income]);
 
   return (
     <Fragment>
